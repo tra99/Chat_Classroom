@@ -36,7 +36,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 CarouselSlider(
                   items: imageList.map((item) {
                     return Padding(
-                      padding: const EdgeInsets.only(left: 10,right: 10,top: 10),
+                      padding:
+                          const EdgeInsets.only(left: 10, right: 10, top: 10),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.asset(
@@ -69,7 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: imageList.asMap().entries.map((entry) {
                       return GestureDetector(
-                        onTap: () => carouselController.animateToPage(entry.key),
+                        onTap: () =>
+                            carouselController.animateToPage(entry.key),
                         child: Container(
                           width: currentIndex == entry.key ? 7 : 7,
                           height: 7.0,
@@ -84,7 +86,27 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     }).toList(),
                   ),
-                ),      
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20,top: 10),
+            child: Text(
+              'Essential',
+              style: GoogleFonts.getFont('Coiny',
+                  textStyle: const TextStyle(
+                      fontSize: 20, color: Color.fromARGB(255, 105, 114, 106))),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 20,bottom: 4),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text('View >>', style: GoogleFonts.getFont('Coiny',
+                    textStyle: const TextStyle(
+                        fontSize: 16, color: Color.fromARGB(255, 105, 114, 106))),)
               ],
             ),
           ),
@@ -105,7 +127,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 }),
               ),
             ),
-                )
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                'Profit Promotion & Gift',
+                style: GoogleFonts.getFont('Coiny',
+                    textStyle: const TextStyle(
+                        fontSize: 20, color: Color.fromARGB(255, 105, 114, 106))),
+              ),
+              Image.asset('assets/icons/promotion.png')
+            ],
+          ),
         ],
       ),
       Column(
@@ -144,7 +178,9 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(width: 8),
             Text(
               'ITC Students',
-              style: GoogleFonts.getFont('Coiny', textStyle: const TextStyle(color: Color.fromARGB(255, 105, 114, 106))),
+              style: GoogleFonts.getFont('Coiny',
+                  textStyle: const TextStyle(
+                      color: Color.fromARGB(255, 105, 114, 106))),
             ),
           ],
         ),
@@ -189,11 +225,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
 class choices {
   const choices({required this.name, required this.image});
   final String name;
   final ImageProvider image;
 }
+
 List<choices> ch = const <choices>[
   choices(name: 'Bank', image: AssetImage('assets/icons/bank.png')),
   choices(name: 'Classroom', image: AssetImage('assets/icons/classroom.png')),
@@ -216,7 +254,9 @@ class SelectCard extends StatelessWidget {
             Image(image: ch.image, width: 80),
             Text(
               ch.name,
-              style: GoogleFonts.getFont('Coiny', textStyle: const TextStyle(color: Color.fromARGB(255, 105, 114, 106),fontSize: 18)),
+              style: GoogleFonts.getFont('Coiny',
+                  textStyle: const TextStyle(
+                      color: Color.fromARGB(255, 105, 114, 106), fontSize: 18)),
             ),
           ],
         ),
