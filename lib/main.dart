@@ -1,3 +1,4 @@
+import 'package:chat_classroom/src/screens/chat.dart';
 import 'package:chat_classroom/src/screens/homescreen.dart';
 import 'package:flutter/material.dart';
 

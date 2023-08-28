@@ -1,7 +1,7 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -21,6 +21,22 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
   int _selectedIndex = 0;
   late List<Widget> _widgetOptions;
+
+  List<choices> ch = const <choices>[
+    choices(name: 'Bank', image: AssetImage('assets/icons/bank.png')),
+    choices(name: 'Classroom', image: AssetImage('assets/icons/classroom.png')),
+    choices(name: 'Forum', image: AssetImage('assets/icons/library.png')),
+    choices(name: 'Service', image: AssetImage('assets/icons/chatgpt.png')),
+  ];
+
+  List<choices> extendedChoices = const <choices>[
+    choices(name: 'Library', image: AssetImage('assets/icons/library.png')),
+    choices(name: 'Chat', image: AssetImage('assets/icons/chatgpt.png')),
+    choices(name: 'Chat', image: AssetImage('assets/icons/chatgpt.png')),
+    choices(name: 'Chat', image: AssetImage('assets/icons/chatgpt.png')),
+  ];
+
+  bool showExtendedGrid = false;
 
   @override
   void initState() {
@@ -70,8 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: imageList.asMap().entries.map((entry) {
                       return GestureDetector(
-                        onTap: () =>
-                            carouselController.animateToPage(entry.key),
+                        onTap: () => carouselController.animateToPage(entry.key),
                         child: Container(
                           width: currentIndex == entry.key ? 7 : 7,
                           height: 7.0,
@@ -91,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20,top: 10),
+            padding: const EdgeInsets.only(left: 20, top: 10),
             child: Text(
               'Essential',
               style: GoogleFonts.getFont('Coiny',
@@ -99,14 +114,25 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontSize: 20, color: Color.fromARGB(255, 105, 114, 106))),
             ),
           ),
+          // this code is not working yet
           Padding(
-            padding: const EdgeInsets.only(right: 20,bottom: 4),
+            padding: const EdgeInsets.only(right: 20, bottom: 4),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text('View >>', style: GoogleFonts.getFont('Coiny',
-                    textStyle: const TextStyle(
-                        fontSize: 16, color: Color.fromARGB(255, 105, 114, 106))),)
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      showExtendedGrid = !showExtendedGrid;
+                    });
+                  },
+                  child: Text(
+                    'View >>',
+                    style: GoogleFonts.getFont('Coiny',
+                        textStyle: const TextStyle(
+                            fontSize: 16, color: Color.fromARGB(255, 105, 114, 106))),
+                  ),
+                )
               ],
             ),
           ),
@@ -119,12 +145,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisSpacing: 2,
                 crossAxisCount: 2,
                 mainAxisSpacing: 4,
-                children: List.generate(ch.length, (index) {
-                  return SelectCard(
-                    key: ValueKey(index),
-                    ch: ch[index],
-                  );
-                }),
+                children: [
+                  ...ch.map((choice) {
+                    return SelectCard(
+                      key: ValueKey(choice.name),
+                      ch: choice,
+                    );
+                  }),
+                  if (showExtendedGrid)
+                    ...extendedChoices.map((choice) {
+                      return SelectCard(
+                        key: ValueKey(choice.name),
+                        ch: choice,
+                      );
+                    }),
+                ],
               ),
             ),
           ),
@@ -143,17 +178,29 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       Column(
-        children: const [Text('Bonjour'), Text('Ni hao')],
+        children: [
+          Text("Bonjour"),
+          Text("Bonjour"),
+        ],
       ),
       Column(
-        children: const [Text('Bonjour'), Text('Ni hao')],
+        children: [
+          Text("Bonjour"),
+          Text("Bonjour"),
+        ],
       ),
       Column(
-        children: const [Text('Bonjour'), Text('Ni hao')],
+        children: [
+          Text("Bonjour"),
+          Text("Bonjour"),
+        ],
       ),
       Column(
-        children: const [Text('Bonjour'), Text('Ni hao')],
-      ),
+        children: [
+          Text("Bonjour"),
+          Text("Bonjour"),
+        ],
+      )
     ];
   }
 
@@ -231,13 +278,6 @@ class choices {
   final String name;
   final ImageProvider image;
 }
-
-List<choices> ch = const <choices>[
-  choices(name: 'Bank', image: AssetImage('assets/icons/bank.png')),
-  choices(name: 'Classroom', image: AssetImage('assets/icons/classroom.png')),
-  choices(name: 'Forum', image: AssetImage('assets/icons/library.png')),
-  choices(name: 'Service', image: AssetImage('assets/icons/chatgpt.png')),
-];
 
 class SelectCard extends StatelessWidget {
   const SelectCard({required Key? key, required this.ch}) : super(key: key);
